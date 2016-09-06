@@ -3,6 +3,17 @@
 <ul>
   <% @lists.each do |list| %>
     <li><%= link_to list.name, list_path(list) %></li>
+    <ul>
+      <% list.tasks.each do |task| %>
+        <li>
+          <%= task.description %>
+          <%= form_for [list, task] do |f| %>
+            <%= f.hidden_field(:done, :value => !task.done) %>
+            <%= f.submit 'toggle done' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
 </ul>
 
